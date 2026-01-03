@@ -1,0 +1,58 @@
+"use client";
+
+import React, { useRef } from "react";
+import { motion, useMotionTemplate, useMotionValue, useSpring } from "framer-motion";
+
+const ROTATION_RANGE = 20; // Degrees
+const HALF_ROTATION_RANGE = ROTATION_RANGE / 2;
+
+export const TiltCard = ({ children, className }: { children: React.ReactNode; className?: string }) => {
+    const ref = useRef<HTMLDivElement>(null);
+
+    const x = useMotionValue(0);
+    const y = useMotionValue(0);
+
+    const xSpring = useSpring(x, { stiffness: 300, damping: 30 });
+    const ySpring = useSpring(y, { stiffness: 300, damping: 30 });
+
+    const transform = useMotionTemplate`rotateX(${xSpring}deg) rotateY(${ySpring}deg)`;
+
+    const handleMouseMove = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+        if (!ref.current) return;
+
+        const rect = ref.current.getBoundingClientRect();
+
+        const width = rect.width;
+        const height = rect.height;
+
+        const mouseX = (e.clientX - rect.left) * 32.5;
+        const mouseY = (e.clientY - rect.top) * 32.5;
+
+        // Simple tilt logic
+        const rX = (mouseY / height - HALF_ROTATION_RANGE) * -1; // Invert X for natural feel
+        const rY = mouseX / width - HALF_ROTATION_RANGE;
+
+        x.set(rX);
+        y.set(rY);
+    };
+
+    const handleMouseLeave = () => {
+        x.set(0);
+        y.set(0);
+    };
+
+    return (
+        <motion.div
+            ref={ref}
+            onMouseMove={handleMouseMove}
+            onMouseLeave={handleMouseLeave}
+            style={{
+                transformStyle: "preserve-3d",
+                transform,
+            }}
+            className={className}
+        >
+            {children}
+        </motion.div>
+    );
+};
