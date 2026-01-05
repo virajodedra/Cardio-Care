@@ -52,9 +52,9 @@ export default function PredictionForm() {
             setLoading(false);
             return;
         }
-
+// 'http://127.0.0.1:8000/predict' for  local
         try {
-            const response = await fetch('http://127.0.0.1:8000/predict', {
+            const response = await fetch(BACKEND_API_URL, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
