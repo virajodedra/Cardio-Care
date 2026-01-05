@@ -55,8 +55,6 @@ export default function PredictionForm() {
             setLoading(false);
             return;
         }
-
-        // http://127.0.0.1:8000/predict  for the  local
         try {
             const response = await fetch(BACKEND_URL, {
                 method: 'POST',
