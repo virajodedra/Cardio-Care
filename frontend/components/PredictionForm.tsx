@@ -19,6 +19,9 @@ const FormLabel = ({ children, htmlFor }: { children: React.ReactNode, htmlFor?:
     </label>
 );
 
+
+const BACKEND_URL = `${process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000'}/predict`;
+
 export default function PredictionForm() {
     const [formData, setFormData] = useState({
         age: '',
@@ -53,8 +56,9 @@ export default function PredictionForm() {
             return;
         }
 
+        // http://127.0.0.1:8000/predict  for the  local
         try {
-            const response = await fetch('http://127.0.0.1:8000/predict', {
+            const response = await fetch(BACKEND_URL, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
