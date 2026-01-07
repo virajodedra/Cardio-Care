@@ -11,6 +11,7 @@ app = FastAPI(title="Cardiovascular Disease Prediction API")
 origins = [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
+    "https://cardiocare-wine.vercel.app",
 ]
 
 app.add_middleware(

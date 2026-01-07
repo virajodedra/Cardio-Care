@@ -10,7 +10,7 @@ export function Background() {
             <div className="absolute bottom-[-20%] right-[-10%] w-[50%] h-[50%] rounded-full bg-secondary/20 blur-[120px] animate-pulse-slow delay-1000" />
 
             {/* Grid Pattern Overlay */}
-            <div className="absolute inset-0 bg-[url('/grid.svg')] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))]" />
+            {/* Grid Pattern Overlay - Removed to fix 404 */}\r\n            {/* <div className="absolute inset-0 bg-[url('/grid.svg')] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))]" /> */}
 
             {/* Subtle moving particles (CSS ONLY for performance) */}
             <div className="absolute inset-0 opacity-20">
